@@ -25,7 +25,7 @@ hi PmenuThumb ctermbg=124 ctermfg=3
 
 
 "Start dein Scripts-------------------------
-if !&compatible
+if &compatible
   set nocompatible
 endif
 
@@ -138,8 +138,8 @@ endif
 let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 
 syntax enable
-"set background=light
-"let g:solarized_termcolors=16
-"let g:solarized_termtrans=1
+set background=light
+let g:solarized_termcolors=16
+let g:solarized_termtrans=1
 "colorscheme solarized
 "colorscheme desert
