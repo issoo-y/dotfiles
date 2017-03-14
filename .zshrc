@@ -1,7 +1,7 @@
 autoload -U compinit
 compinit
 
-export GOPATH="$HOME/go"
+export GOPATH="$HOME/dev"
 
 # autoload predict-on
 # predict-on
@@ -104,7 +104,8 @@ export LANG=ja_JP.UTF-8
 #export PATH="/home/isomoto/anaconda3/bin:$PATH"
 export GOPATH
 
-#########[ "$TMUX" = "" ] && /usr/bin/tmux
+# 起動していなければtmuxを起動
+[ "$TMUX" = "" ] && /usr/bin/tmux
 
 function percol_select_history() {
     local tac
