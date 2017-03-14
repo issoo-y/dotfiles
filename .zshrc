@@ -22,6 +22,24 @@ zstyle ':chpwd:*' recent-dirs-default true
 zstyle ':chpwd:*' recent-dirs-file "$HOME/.cache/shell/chpwd-recent-dirs"
 zstyle ':chpwd:*' recent-dirs-pushd true
 
+# zplug
+# $ curl -sL zplug.sh/installer | zsh
+source ~/.zplug/init.zsh
+zstyle ":anyframe:selector:" use peco
+zplug 'zsh-users/zsh-completions'
+zplug 'mollifier/anyframe'
+zplug 'zsh-users/zsh-syntax-highlighting'
+zplug 'zsh-users/zsh-completions'
+
+if ! zplug check --verbose; then
+    printf 'Install?[y/n]: '
+    if read -q; then
+        echo; zplug install
+    fi
+fi
+zplug load
+
+# keybind
 bindkey -v
 
 autoload -Uz edit-command-line
@@ -46,7 +64,10 @@ bindkey -M viins '^Y'  yank
 
 bindkey '^p' history-beginning-search-backward
 bindkey '^n' history-beginning-search-forward
-
+bindkey '^]' anyframe-widget-cd-ghq-repository
+bindkey '^r' anyframe-widget-put-history
+bindkey '^x^b' anyframe-widget-checkout-git-branch
+bindkey '^x^h' anyframe-widget-cdr
 
 HISTFILE=~/.zsh_history
 HISTSIZE=10000
@@ -107,20 +128,6 @@ export GOPATH
 # 起動していなければtmuxを起動
 [ "$TMUX" = "" ] && /usr/bin/tmux
 
-function percol_select_history() {
-    local tac
-    if which tac > /dev/null; then
-        tac="tac"
-    else
-        tac="tail -r"
-    fi
-    BUFFER=$(fc -l -n 1 | eval $tac | percol --query "$LBUFFER")
-    CURSOR=$#BUFFER             # move cursor
-    zle -R -c                   # refresh
-}
-zle -N percol_select_history
-bindkey '^R' percol_select_history
-
 # w3m でGoogle translate English->Japanese
 function gte() {
   google_translate "$*" "en-ja"
@@ -154,6 +161,7 @@ function google_translate() {
   w3m +13 "http://translate.google.com/${opt}"
 }
 
+#############################################
 
 alias ll='ls -l --color=auto'
 alias la='ls -la --color=auto'

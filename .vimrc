@@ -9,6 +9,8 @@ set softtabstop=4
 set autoindent
 set smartindent
 set incsearch
+set cursorline
+highlight CursorLine cterm=underline ctermbg=white
 "set laststatus=2
 
 
