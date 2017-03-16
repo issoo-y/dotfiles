@@ -25,3 +25,8 @@ repo = 'fatih/vim-go'
 [[plugins]]
 repo = 'surround.vim'
 
+[[plugins]]
+repo = 'altercation/vim-colors-solarized'
+
+[[plugins]]
+repo = 'mattn/emmet-vim'

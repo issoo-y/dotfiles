@@ -129,26 +129,23 @@ left_down_prompt_preexec() {
 }
 add-zsh-hook preexec left_down_prompt_preexec
 
-PROMPT="%{${fg_bold[black]}%}%n%#%{$reset_color%} "
-#RPROMPT="%{[31m%}%/%{[m%} "
-RPROMPT="%{${fg[black]}%}%/%{[m%} "
-#PROMPT2="%{[31m%}%_%#%{[m%} "
-PROMPT2="%{${fg_bold[black]}%}%_%#%{[m%} "
+PROMPT="%{${fg_bold[green]}%}%n%#%{$reset_color%} "
+RPROMPT="%{${fg[green]}%}%/%{[m%} "
+PROMPT2="%{${fg_bold[green]}%}%_%#%{[m%} "
 function zle-keymap-select zle-line-init zle-line-finish
 {
     case $KEYMAP in
         main|viins)
-            PROMPT_2="%{${fg_bold[black]}%}%n%#%{$reset_color%} "
+            PROMPT_2="%{${fg_bold[green]}%}%n%#%{$reset_color%} "
             ;;
         vicmd)
-            #PROMPT_2="%{${bg[black]}${fg[white]}%}%n%#%{$reset_color%} "
             PROMPT_2="%{${fg_bold[blue]}%}%n%#%{$reset_color%} "
             ;;
         vivis|vivli)
-            PROMPT_2="%{${bg[yellow]}${fg[black]}%}%n%#%{$reset_color%} "
+            PROMPT_2="%{${bg[yellow]}${fg[green]}%}%n%#%{$reset_color%} "
             ;;
     esac
-    [ -n "${REMOTEHOST}${SSH_CONNECTION}" ] && PROMPT="%{${fg[black]}%}[${HOST%%.*}]${PROMPT_2}" || PROMPT="${PROMPT_2}"
+    [ -n "${REMOTEHOST}${SSH_CONNECTION}" ] && PROMPT="%{${fg[green]}%}[${HOST%%.*}]${PROMPT_2}" || PROMPT="${PROMPT_2}"
 
     zle reset-prompt
 }
@@ -171,10 +168,18 @@ export GOPATH
 
 #############################################
 
-alias ll='ls -l --color=auto'
-alias la='ls -la --color=auto'
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+alias grep='grep --color=auto'
+alias l='ls -CF'
+alias ls='ls --color=auto'  
+alias ll='ls -alF'
+alias la='ls -la'
 alias ptipython='ptipython --vi'
 alias lstokyo='cat /media/sf_vdata/192.168.20.7.old.txt |nkf -Luw '
 alias bitcoin='docker exec testnet /usr/local/bin/bitcoin-cli '
 alias gtags='gtags --gtagslabel=pygments '
 alias t='trans :ja '
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+export NVM_DIR="$HOME/.nvm"

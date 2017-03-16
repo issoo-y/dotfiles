@@ -10,7 +10,7 @@ set autoindent
 set smartindent
 set incsearch
 set cursorline
-highlight CursorLine cterm=underline ctermbg=white
+highlight CursorLine cterm=underline ctermbg=BLACK
 "set laststatus=2
 
 
@@ -140,8 +140,8 @@ endif
 let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 
 syntax enable
-set background=light
-let g:solarized_termcolors=16
-let g:solarized_termtrans=1
+set background=dark
+"let g:solarized_termcolors=256
+"let g:solarized_termtrans=0
 "colorscheme solarized
 "colorscheme desert
