@@ -196,7 +196,6 @@ export GOPATH
 [ "$TMUX" = "" ] && /usr/bin/tmux
 
 
-
 #############################################
 
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
@@ -210,6 +209,7 @@ alias lstokyo='cat /media/sf_vdata/192.168.20.7.old.txt |nkf -Luw '
 alias bitcoin='docker exec testnet /usr/local/bin/bitcoin-cli '
 alias gtags='gtags --gtagslabel=pygments '
 alias t='trans :ja '
+#alias gtags='gtags --gtagslabel=pygments'
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm

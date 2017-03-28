@@ -1,0 +1,47 @@
+
+sudo apt install git vim tree sysstat global golang-go ansible tmux zsh
+mkdir -p dev/src/github.com/issoo-y
+cd !$
+git clone https://github.com/issoo-y/dotfiles.git
+cd dotfiles
+ln -sf `pwd`/.dein.toml ~/.dein.toml
+ln -sf `pwd`/.inputrc ~/.dein.inputrc
+ln -sf `pwd`/.peco ~/.peco
+ln -sf `pwd`/.tmux.conf ~/.tmux.conf
+ln -sf `pwd`/.vimrc ~/.vimrc
+ln -sf `pwd`/.zshrc ~/.zshrc
+ln -sf `pwd`/.globalrc ~/.globalrc
+mkdir -p ~/.cache/shell
+curl -sL zplug.sh/installer | zsh
+sudo chsh $(which zsh)
+. ~/.zshrc # or sudo reboot
+go get github.com/motemen/ghq
+git config --global ghq.root $GOPATH/src
+. ~/.zshrc
+# https://github.com/peco/peco/releases から最終版をインストール
+cd /tmp
+wget https://github.com/peco/peco/releases/download/v0.5.1/peco_linux_amd64.tar.gz
+tar zxvf peco_linux_amd64.tar.gz
+sudo mv peco_linux_amd64/peco /usr/local/bin
+#global
+sudo apt-get install exuberant-ctags
+sudo sh -c 'curl -kL https://bootstrap.pypa.io/get-pip.py | python3'
+# http://www.gnu.org/software/global/download.html から最新の global-x.x.x.tar.gz をダウンロード
+cd /tmp
+sudo apt install ncurses-dev python-pip
+sudo pip install pygments
+wget http://tamacom.com/global/global-6.5.6.tar.gz
+tar zxvf global-6.5.6.tar.gz
+cd global-6.5.6
+./configure
+make
+sudo make install
+cd
+cp /usr/local/share/gtags/gtags.conf ~/.globalrc
+vim ~/.globalrc
+diff /usr/local/share/gtags/gtags.conf ~/.globalrc
+38c38
+<       :tc=native:
+---
+>       :tc=native:tc=pygments:
+
