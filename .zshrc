@@ -11,6 +11,13 @@ local BLUE=%{$fg[blue]%}
 local PURPLE=%{$fg[purple]%}
 local CYAN=%{$fg[cyan]%}
 local WHITE=%{$fg[white]%}
+local B_RED=%{$fg_bold[red]%}
+local B_GREEN=%{$fg_bold[green]%}
+local B_YELLOW=%{$fg_bold[yellow]%}
+local B_BLUE=%{$fg_bold[blue]%}
+local B_PURPLE=%{$fg_bold[purple]%}
+local B_CYAN=%{$fg_bold[cyan]%}
+local B_WHITE=%{$fg_bold[white]%}
 
 setopt auto_param_slash      # ディレクトリ名の補完で末尾の / を自動的に付加し、次の補完に備える
 setopt mark_dirs             # ファイル名の展開でディレクトリにマッチした場合 末尾に / を付加
@@ -106,17 +113,19 @@ bindkey -M viins '^K'  kill-line
 bindkey -M viins '^U'  backward-kill-line
 bindkey -M viins '^W'  backward-kill-word
 bindkey -M viins '^Y'  yank
+bindkey -M vicmd 'j' history-substring-search-up
+bindkey -M vicmd 'k' history-substring-search-down
 
 #bindkey '^p' history-beginning-search-backward
 #bindkey '^n' history-beginning-search-forward
 bindkey '^p' history-substring-search-up
 bindkey '^n' history-substring-search-down
-bindkey '^]' anyframe-widget-cd-ghq-repository
+#bindkey '^]' anyframe-widget-cd-ghq-repository
 bindkey '^r' anyframe-widget-put-history
 bindkey '^x^b' anyframe-widget-checkout-git-branch
 bindkey '^xb' anyframe-widget-checkout-git-branch
-bindkey '^x^f' anyframe-widget-cdr
-bindkey '^xf' anyframe-widget-cdr
+#bindkey '^x^f' anyframe-widget-cdr
+#bindkey '^xf' anyframe-widget-cdr
 #bindkey '^f' anyframe-widget-insert-filename
 
 # vi モード表示
@@ -129,23 +138,42 @@ left_down_prompt_preexec() {
 }
 add-zsh-hook preexec left_down_prompt_preexec
 
-PROMPT="%{${fg_bold[green]}%}%n%#%{$reset_color%} "
-RPROMPT="%{${fg[green]}%}%/%{[m%} "
-PROMPT2="%{${fg_bold[green]}%}%_%#%{[m%} "
+#PROMPT="%{${fg_bold[green]}%}%n%#%{$reset_color%} "
+#RPROMPT="%{${fg[green]}%}%/%{[m%} "
+#PROMPT2="%{${fg_bold[green]}%}%_%#%{[m%} "
+#function zle-keymap-select zle-line-init zle-line-finish
+#{
+    #case $KEYMAP in
+        #main|viins)
+            #PROMPT_2="%{${fg_bold[green]}%}%n%#%{$reset_color%} "
+            #;;
+        #vicmd)
+            #PROMPT_2="%{${fg_bold[blue]}%}%n%#%{$reset_color%} "
+            #;;
+        #vivis|vivli)
+            #PROMPT_2="%{${bg[yellow]}${fg[green]}%}%n%#%{$reset_color%} "
+            #;;
+    #esac
+    #[ -n "${REMOTEHOST}${SSH_CONNECTION}" ] && PROMPT="%{${fg[green]}%}[${HOST%%.*}]${PROMPT_2}" || PROMPT="${PROMPT_2}"
+#
+    #zle reset-prompt
+#}
+PROMPT="%{$B_RED%}%?:%#%{$DEFAULT%} "
+RPROMPT="%{$GREEN%}%/%{[m%} "
+PROMPT2="%{$B_GREEN%}%_%#%{[m%} "
 function zle-keymap-select zle-line-init zle-line-finish
 {
     case $KEYMAP in
         main|viins)
-            PROMPT_2="%{${fg_bold[green]}%}%n%#%{$reset_color%} "
+            PROMPT="%{$B_RED%}%?:%#%{$DEFAULT%} "
             ;;
         vicmd)
-            PROMPT_2="%{${fg_bold[blue]}%}%n%#%{$reset_color%} "
+            PROMPT="%{$B_BLUE%}%?:%#%{$DEFAULT%} "
             ;;
         vivis|vivli)
-            PROMPT_2="%{${bg[yellow]}${fg[green]}%}%n%#%{$reset_color%} "
+            PROMPT="%{${bg[yellow]}$B_RED%}%?:%#%{$DEFAULT%} "
             ;;
     esac
-    [ -n "${REMOTEHOST}${SSH_CONNECTION}" ] && PROMPT="%{${fg[green]}%}[${HOST%%.*}]${PROMPT_2}" || PROMPT="${PROMPT_2}"
 
     zle reset-prompt
 }
@@ -160,11 +188,14 @@ export LANG=ja_JP.UTF-8
 [ -d "$HOME/anaconda3/bin/" ] && export PATH="$HOME/anaconda3/bin:$PATH"
 [ -d "$GOPATH/bin/" ] && export PATH="$GOPATH/bin:$PATH"
 [ -d "/usr/local/go/bin" ] && export PATH="/usr/local/go/bin:$PATH"
-[ -d "/$HOME/anaconda3/bin" ] && export PATH="$HOME/anaconda3/bin:$PATH"
 export GOPATH
+[ -d "/$HOME/anaconda3/bin" ] && export PATH="$HOME/anaconda3/bin:$PATH"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 
 # 起動していなければtmuxを起動
 [ "$TMUX" = "" ] && /usr/bin/tmux
+
+
 
 #############################################
 

@@ -4,14 +4,12 @@ repo = 'Shougo/dein.vim'
 [[plugins]]
 repo = 'Shougo/vimproc.vim'
 
-[[plugins]] repo = 'Shougo/context_filetype.vim'
+[[plugins]]
+repo = 'Shougo/context_filetype.vim'
 
 [[plugins]] # toml syntax
 repo = 'cespare/vim-toml'
 on_ft = 'toml'
-
-[[plugins]]
-repo = 'scrooloose/nerdtree'
 
 [[plugins]]
 repo = 'Shougo/neocomplete.vim'
@@ -30,3 +28,15 @@ repo = 'altercation/vim-colors-solarized'
 
 [[plugins]]
 repo = 'mattn/emmet-vim'
+
+[[plugins]]
+repo = 'Shougo/unite.vim'
+
+[[plugins]]
+repo = 'Shougo/vimproc.vim'
+build = 'make'
+
+[[plugins]]
+repo = 'hewes/unite-gtags'
+depends = 'unite.vim'
+
