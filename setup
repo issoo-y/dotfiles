@@ -1,5 +1,5 @@
 
-sudo apt install git vim tree sysstat global golang-go ansible tmux zsh
+sudo apt install git vim tree sysstat global golang-go ansible tmux zsh silversearcher-ag tig
 mkdir -p dev/src/github.com/issoo-y
 cd !$
 git clone https://github.com/issoo-y/dotfiles.git

@@ -40,3 +40,5 @@ build = 'make'
 repo = 'hewes/unite-gtags'
 depends = 'unite.vim'
 
+[[plugins]]
+repo = 'rking/ag.vim'

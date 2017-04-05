@@ -1,5 +1,6 @@
 set nocompatible
 filetype plugin on
+let mapleader = "\<Space>"
 
 set number
 set expandtab
@@ -138,7 +139,29 @@ endif
 " https://github.com/c9s/perlomni.vim
 let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 
-""" unit
+"" unite {{{
+" The prefix key.
+" nnoremap [unite] <Nop>
+nmap <Leader>f [unite]
+
+" unite.vim keymap
+nnoremap [unite]u :<C-u>Unite -no-split<Space>
+nnoremap <silent> [unite]f :<C-u>Unite<Space>buffer<CR>
+nnoremap <silent> [unite]b :<C-u>Unite<Space>bookmark<CR>
+nnoremap <silent> [unite]m :<C-u>Unite<Space>file_mru<CR>
+nnoremap <silent> [unite]r :<C-u>UniteWithBufferDir<CR>
+nnoremap <silent> ,vr *UniteResume<CR>
+
+" vinarise
+let g:vinarise_enable_auto_detect = 1
+
+" unite-build map
+nnoremap <silent> ,vb :Unit build<CR>
+nnoremap <silent> ,vcb :Unit build:!<CR>
+nnoremap <silent> ,vch :UniteBuildClearHighleght<CR>
+" }}}
+
+"" unite-grep {{{
 " insert modeで開始
 let g:unite_enable_start_insert = 1
 
@@ -147,13 +170,13 @@ let g:unite_enable_ignore_case = 1
 let g:unite_enable_smart_case = 1
 
 " grep検索
-nnoremap <silent> ,g  :<C-u>Unite grep:. -buffer-name=search-buffer<CR>
+nnoremap <silent> <Leader>g  :<C-u>Unite grep:. -buffer-name=search-buffer<CR>
 
 " カーソル位置の単語をgrep検索
-nnoremap <silent> ,cg :<C-u>Unite grep:. -buffer-name=search-buffer<CR><C-R><C-W>
+nnoremap <silent> <Leader>cg :<C-u>Unite grep:. -buffer-name=search-buffer<CR><C-R><C-W>
 
 " grep検索結果の再呼出
-nnoremap <silent> ,r  :<C-u>UniteResume search-buffer<CR>
+nnoremap <silent> <Leader>r  :<C-u>UniteResume search-buffer<CR>
 
 " unite grep に ag(The Silver Searcher) を使う
 if executable('ag')
@@ -161,10 +184,22 @@ if executable('ag')
   let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
   let g:unite_source_grep_recursive_opt = ''
 endif
+" }}}
 
+"" gtags {{{
+nnoremap <Leader>t :Gtags 
+nnoremap <Leader>l :Gtags -f %<CR>
+nnoremap <Leader>j :GtagsCursor<CR>
+nnoremap <Leader>n :cn<CR>
+nnoremap <Leader>p :cp<CR>
+"}}}
+
+"" ag {{{
+nnoremap <Leader>g :Ag <C-r><C-w><CR>
+"}}}
 syntax enable
 set background=dark
-"let g:solarized_termcolors=256
-"let g:solarized_termtrans=0
+let g:solarized_termcolors=256
+let g:solarized_termtrans=0
 "colorscheme solarized
 "colorscheme desert
